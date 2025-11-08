@@ -1,0 +1,75 @@
+W3C ISO BMFF Byte Stream Format Specification
+Source: https://www.w3.org/TR/mse-byte-stream-format-isobmff/
+Document Date: July 23, 2024
+
+OVERVIEW
+========
+This W3C Group Note defines segment formats for Media Source Extensions 
+implementations using ISO Base Media File Format (ISOBMFF).
+
+INITIALIZATION SEGMENT STRUCTURE
+=================================
+A single File Type Box (ftyp) followed by a single Movie Box (moov).
+
+Optional boxes that may precede:
+- Progressive Download Information Box (pdin)
+- Free Space Box (free)  
+- Segment Index Box (sidx)
+
+These optional boxes must be accepted and ignored by implementations.
+
+MEDIA SEGMENT STRUCTURE
+========================
+- One optional Segment Type Box (styp)
+- Followed by a single Movie Fragment Box (moof)
+- Followed by one or more Media Data Boxes (mdat)
+
+CRITICAL FORMAT REQUIREMENTS
+=============================
+User agents must run append error algorithms when:
+
+1. File Type Box contains unsupported brands
+2. Movie Box violates brand requirements  
+3. Tracks contain samples (entry_count in stts, stsc, stco not zero)
+4. Movie Extends (mvex) box is absent from Movie box
+
+MOVIE FRAGMENT RELATIVE ADDRESSING
+===================================
+Occurs when the first Track Fragment Run (trun) in each Track Fragment Box 
+has data-offset-present flag set AND either:
+
+1. Every Track Fragment Box has default-base-is-moof flag set, OR
+2. Movie Fragment Box contains single Track Fragment Box without 
+   base-data-offset-present flag
+
+MIME-TYPE COMPLIANCE
+====================
+Implementations must conform to RFC6381 rules for:
+- audio/mp4
+- video/mp4
+
+RANDOM ACCESS POINTS
+====================
+Correspond to Stream Access Point types 1 or 2 per ISOBMFF Annex I.
+
+KEY BOX TYPES
+=============
+- ftyp: File Type Box
+- moov: Movie Box
+- styp: Segment Type Box  
+- moof: Movie Fragment Box
+- mdat: Media Data Box
+- mvex: Movie Extends Box
+- trun: Track Fragment Run Box
+- stts: Decoding Time to Sample Box
+- stsc: Sample to Chunk Box
+- stco: Chunk Offset Box
+- pdin: Progressive Download Information Box
+- free: Free Space Box
+- sidx: Segment Index Box
+
+REFERENCES
+==========
+- ISO/IEC 14496-12 - ISO Base Media File Format
+- RFC6381 - The 'Codecs' and 'Profiles' Parameters for 'Bucket' Media Types
+- Media Source Extensions API
