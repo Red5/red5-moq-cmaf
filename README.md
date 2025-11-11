@@ -1,4 +1,4 @@
-# MoQ CMAF Packaging Library
+# MoQ Packaging Library
 
 A pure Java 21 library for serialization and deserialization of media content for MoQ (Media over QUIC) Transport, supporting three formats:
 - **CMAF** (Common Media Application Format) packaging according to the [MoQ CMAF Packaging specification](https://github.com/wilaw/moq-cmaf-packaging/blob/main/draft-wilaw-moq-cmafpackaging.md)

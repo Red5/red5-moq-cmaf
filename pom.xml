@@ -163,7 +163,7 @@
     <profiles>
         <profile>
             <id>release</id>
-            <!-- mvn clean deploy -P release -Dgpg.passphrase=[password] -DskipTests=true -->
+            <!-- mvn clean deploy -P release -DskipTests=true -Dgpg.passphrase= -->
             <build>
                 <plugins>
                     <plugin>
